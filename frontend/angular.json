@@ -69,6 +69,10 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+          "options": {
+            "host": "todos.local",
+            "port": 3000
+          },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
