@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Sanctum\Http\Controllers\CsrfCookieController as ControllersCsrfCookieController;
+use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 
 Route::post('/api/register', [RegisteredUserController::class, 'store'])
     ->middleware('guest');
@@ -35,4 +35,4 @@ Route::post('/api/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
-Route::get('/api/csrf-cookie', [ControllersCsrfCookieController::class, 'show']);
+Route::get('/api/csrf-cookie', [CsrfCookieController::class, 'show']);
