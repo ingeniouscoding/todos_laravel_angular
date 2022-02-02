@@ -37,6 +37,8 @@
           },
           "configurations": {
             "production": {
+              "outputPath": "../backend/public/assets/ng",
+              "deployUrl": "/assets/ng/",
               "budgets": [
                 {
                   "type": "initial",

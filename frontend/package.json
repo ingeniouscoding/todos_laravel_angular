@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build && cp ../backend/public/assets/ng/index.html ../backend/resources/views/angular.blade.php",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
