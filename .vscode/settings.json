@@ -1,0 +1,8 @@
+{
+    "[html]": {
+        "editor.tabSize": 2
+    },
+    "css.styleSheets": [
+        "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    ]
+}
