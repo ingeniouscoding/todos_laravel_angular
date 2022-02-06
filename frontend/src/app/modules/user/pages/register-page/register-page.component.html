@@ -1,1 +1,42 @@
-<p>register-page works!</p>
+<section class="section">
+  <div class="container is-max-desktop">
+    <form class="box" (ngSubmit)="onSubmit()">
+
+      <div class="field">
+        <label for="name" class="label">Name</label>
+        <div class="control">
+          <input id="name" name="name" type="text" placeholder="Name" class="input"
+            [(ngModel)]="user.name">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email" class="label">Email</label>
+        <div class="control">
+          <input id="email" name="email" type="email" placeholder="Email" class="input"
+            [(ngModel)]="user.email">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="password" class="label">Password</label>
+        <div class="control">
+          <input id="password" name="password" type="password" placeholder="Password" class="input"
+            [(ngModel)]="user.password">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="password_confirmation" class="label">Confirm Password</label>
+        <div class="control">
+          <input id="password_confirmation" name="password_confirmation" type="password" placeholder="Confirm"
+            class="input"
+            [(ngModel)]="user.password_confirmation">
+        </div>
+      </div>
+
+      <button type="submit" class="button">Submit</button>
+
+    </form>
+  </div>
+</section>
