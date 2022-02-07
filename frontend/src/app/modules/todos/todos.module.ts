@@ -6,6 +6,7 @@ import { TodosPageComponent } from './pages/todos-page/todos-page.component';
 import { TodosListComponent } from './components/todos-list/todos-list.component';
 import { CreateTodoComponent } from './components/create-todo/create-todo.component';
 import { FormsModule } from '@angular/forms';
+import { LayoutModule } from '../layout/layout.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     TodosRoutingModule,
+    LayoutModule,
   ],
 })
 export class TodosModule { }
