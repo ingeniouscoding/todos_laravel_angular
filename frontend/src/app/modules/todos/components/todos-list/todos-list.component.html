@@ -2,7 +2,7 @@
   <div class="container is-max-desktop">
 
     <div class="block" *ngFor="let todo of todos$ | async ">
-      <div class="box todo">
+      <div class="box todo" (swipe)="onDelete(todo)">
         <div>
           <p class="subtitle">
             {{ todo.body }}

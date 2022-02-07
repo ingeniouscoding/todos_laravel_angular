@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { map } from 'rxjs';
 
 import { TodosService } from '../../services/todos.service';
 import { Todo } from '../../types/todo.interface';
@@ -18,4 +19,7 @@ export class TodosListComponent {
     this.todosService.update(todo);
   }
 
+  onDelete(todo: Todo) {
+    this.todosService.delete(todo);
+  }
 }

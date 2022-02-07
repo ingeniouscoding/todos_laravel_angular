@@ -25,4 +25,9 @@ export class TodosService {
         tap(data => console.log(data.data)),
       ).subscribe();
   }
+
+  delete(todo: Todo) {
+    this.http.delete<any>(`${this.todosUrl}/${todo.id}`, todo)
+      .subscribe();
+  }
 }
