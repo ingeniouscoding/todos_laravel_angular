@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 
 import { TodosService } from '../../services/todos.service';
@@ -9,10 +9,14 @@ import { Todo } from '../../types/todo.interface';
   templateUrl: './todos-list.component.html',
   styleUrls: ['./todos-list.component.scss'],
 })
-export class TodosListComponent {
+export class TodosListComponent implements OnInit {
   public todos$ = this.todosService.todos$;
 
   constructor(private todosService: TodosService) { }
+
+  ngOnInit(): void {
+    this.todosService.init();
+  }
 
   onComplete(todo: Todo) {
     todo.isCompleted = !todo.isCompleted;

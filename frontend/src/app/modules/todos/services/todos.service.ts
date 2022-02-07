@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { Todo } from '../types/todo.interface';
@@ -10,14 +10,21 @@ import { Todo } from '../types/todo.interface';
 })
 export class TodosService {
   private readonly todosUrl = environment.apiUrl + '/todos';
+  private todosSubject$ = new BehaviorSubject<Todo[]>([]);
 
-  public todos$: Observable<Todo[]> = this.http.get<any>(this.todosUrl)
-    .pipe(
-      tap(res => console.log(res)),
-      map((res) => res.data)
-    );
+  public todos$: Observable<Todo[]> = this.todosSubject$.asObservable();
 
   constructor(private http: HttpClient) { }
+
+  init() {
+    this.http.get<any>(this.todosUrl)
+      .pipe(
+        tap(res => console.log(res)),
+        map((res) => res.data)
+      ).subscribe({
+        next: (data) => this.todosSubject$.next(data)
+      });
+  }
 
   update(todo: Todo) {
     this.http.patch<any>(`${this.todosUrl}/${todo.id}`, todo)
@@ -27,7 +34,12 @@ export class TodosService {
   }
 
   delete(todo: Todo) {
+    const lastValues = this.todosSubject$.value;
+    const newValues = lastValues.filter((t) => t.id !== todo.id);
+
     this.http.delete<any>(`${this.todosUrl}/${todo.id}`, todo)
-      .subscribe();
+      .subscribe({
+        next: () => this.todosSubject$.next(newValues)
+      });
   }
 }
