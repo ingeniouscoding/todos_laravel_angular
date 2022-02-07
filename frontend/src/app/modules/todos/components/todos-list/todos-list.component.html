@@ -2,13 +2,13 @@
   <div class="container is-max-desktop">
 
     <div class="block" *ngFor="let todo of todos$ | async ">
-      <div class="box todo" (swipe)="onDelete(todo)">
+      <div class="box is-flex is-justify-content-space-between" (swipe)="onDelete(todo)">
         <div>
           <p class="subtitle">
             {{ todo.body }}
           </p>
         </div>
-        <div class="icon" (click)="onComplete(todo)">
+        <a class="icon" (click)="onComplete(todo)">
           <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             x="0px" y="0px" viewBox="0 0 17.837 17.837" style="enable-background:new 0 0 17.837 17.837;"
             xml:space="preserve">
@@ -19,7 +19,7 @@
                 [ngStyle]="{ fill: todo.isCompleted ? '#00d1b2' : '#ddd' }" />
             </g>
           </svg>
-        </div>
+        </a>
       </div>
     </div>
 
