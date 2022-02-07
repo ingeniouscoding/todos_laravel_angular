@@ -1,0 +1,14 @@
+<section class="section">
+  <div class="container is-max-desktop">
+    <form (ngSubmit)="onCreate()">
+      <div class="field has-addons">
+        <div class="control is-expanded">
+          <input name="body" type="text" placeholder="Create todo..." class="input is-primary" [(ngModel)]="body">
+        </div>
+        <div class="control">
+          <button class="button is-success">+</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

@@ -22,14 +22,26 @@ export class TodosService {
         tap(res => console.log(res)),
         map((res) => res.data)
       ).subscribe({
-        next: (data) => this.todosSubject$.next(data)
+        next: (data) => this.todosSubject$.next(data),
+      });
+  }
+
+  create(body: string) {
+    const lastValues = this.todosSubject$.value;
+
+    this.http.post<any>(this.todosUrl, { body })
+      .subscribe({
+        next: (todo) => {
+          lastValues.push(todo);
+          this.todosSubject$.next(lastValues);
+        },
       });
   }
 
   update(todo: Todo) {
     this.http.patch<any>(`${this.todosUrl}/${todo.id}`, todo)
       .pipe(
-        tap(data => console.log(data.data)),
+        tap(data => console.log(data.data))
       ).subscribe();
   }
 
@@ -39,7 +51,7 @@ export class TodosService {
 
     this.http.delete<any>(`${this.todosUrl}/${todo.id}`, todo)
       .subscribe({
-        next: () => this.todosSubject$.next(newValues)
+        next: () => this.todosSubject$.next(newValues),
       });
   }
 }

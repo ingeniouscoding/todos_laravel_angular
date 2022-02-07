@@ -4,16 +4,19 @@ import { CommonModule } from '@angular/common';
 import { TodosRoutingModule } from './todos-routing.module';
 import { TodosPageComponent } from './pages/todos-page/todos-page.component';
 import { TodosListComponent } from './components/todos-list/todos-list.component';
-
+import { CreateTodoComponent } from './components/create-todo/create-todo.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     TodosPageComponent,
-    TodosListComponent
+    TodosListComponent,
+    CreateTodoComponent,
   ],
   imports: [
     CommonModule,
-    TodosRoutingModule
-  ]
+    FormsModule,
+    TodosRoutingModule,
+  ],
 })
 export class TodosModule { }
