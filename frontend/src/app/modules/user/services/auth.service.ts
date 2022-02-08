@@ -8,13 +8,15 @@ import { LocalStorageService } from '../../app-root/services/local-storage.servi
 import { UserLogin } from '../types/user-login.interface';
 import { UserRegister } from '../types/user-register.interface';
 
+const IS_AUTHENTICATED = 'is_authenticated'
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private authStatus = new BehaviorSubject<boolean>(false);
+  private authStatus$ = new BehaviorSubject<boolean>(false);
 
-  public isAuth$ = this.authStatus.asObservable();
+  public isAuth$ = this.authStatus$.asObservable();
 
   private readonly registerUrl = environment.apiUrl + '/register';
   private readonly loginUrl = environment.apiUrl + '/login';
@@ -25,8 +27,8 @@ export class AuthService {
     private http: HttpClient,
     private router: Router
   ) {
-    let isAuthenticated = !!this.storage.getItem('is_authenticated');
-    this.authStatus.next(isAuthenticated);
+    let isAuthenticated = !!this.storage.getItem(IS_AUTHENTICATED);
+    this.authStatus$.next(isAuthenticated);
   }
 
   register(user: UserRegister): void {
@@ -60,16 +62,16 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!this.storage.getItem('is_authenticated');
+    return !!this.storage.getItem(IS_AUTHENTICATED);
   }
 
   private setLoggedIn() {
-    this.storage.setItem('is_authenticated', 'true');
-    this.authStatus.next(true);
+    this.storage.setItem(IS_AUTHENTICATED, 'true');
+    this.authStatus$.next(true);
   }
 
   private setLoggedOut() {
-    this.authStatus.next(true);
-    this.storage.removeItem('is_authenticated');
+    this.storage.removeItem(IS_AUTHENTICATED);
+    this.authStatus$.next(false);
   }
 }
