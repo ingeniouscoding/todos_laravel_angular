@@ -3,4 +3,7 @@ export interface Todo {
   body: string;
   isCompleted: boolean;
   category?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date;
 }
