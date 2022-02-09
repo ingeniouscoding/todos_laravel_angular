@@ -15,7 +15,8 @@ export class TodoItemComponent {
   @Output() public delete = new EventEmitter<Todo>();
   @Output() public update = new EventEmitter<Todo>();
 
-  public isOpen = false;
+  public isDeleteOpen = false;
+  public isEditOpen = false;
 
   public isUpdating$ = this.todosService.isUpdating$
     .pipe(
@@ -41,10 +42,18 @@ export class TodoItemComponent {
   }
 
   onSwipeRight() {
-    this.isOpen = true;
+    if (this.isEditOpen) {
+      this.isEditOpen = false;
+    } else {
+      this.isDeleteOpen = true;
+    }
   }
 
   onSwipeLeft() {
-    this.isOpen = false;
+    if (this.isDeleteOpen) {
+      this.isDeleteOpen = false;
+    } else if (!this.isEditOpen) {
+      this.isEditOpen = true;
+    }
   }
 }

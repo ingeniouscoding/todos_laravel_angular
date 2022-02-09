@@ -8,6 +8,7 @@ import { TodosListComponent } from './components/todos-list/todos-list.component
 import { CreateTodoComponent } from './components/create-todo/create-todo.component';
 import { LayoutModule } from '../layout/layout.module';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
+import { TodoUpdateComponent } from './components/todo-update/todo-update.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { TodoItemComponent } from './components/todo-item/todo-item.component';
     TodosListComponent,
     CreateTodoComponent,
     TodoItemComponent,
+    TodoUpdateComponent,
   ],
   imports: [
     CommonModule,
