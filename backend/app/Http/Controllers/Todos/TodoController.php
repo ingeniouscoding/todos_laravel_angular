@@ -28,7 +28,7 @@ class TodoController extends Controller
     {
         $todo = Todo::create($request->validated());
 
-        return $todo;
+        return new TodoResource($todo);
     }
 
     public function show(Todo $todo)
