@@ -1,29 +1,8 @@
 <section class="section">
   <div class="container is-max-desktop">
-
-    <div class="block" *ngFor="let todo of todos$ | async ">
-      <div class="box is-flex is-justify-content-space-between is-align-items-center" (swipe)="onDelete(todo)">
-        <div>
-          <p class="subtitle">
-            {{ todo.body }}
-          </p>
-        </div>
-        <div>
-          <a class="icon" (click)="onComplete(todo)">
-            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-              x="0px" y="0px" viewBox="0 0 17.837 17.837" style="enable-background:new 0 0 17.837 17.837;"
-              xml:space="preserve">
-              <g>
-                <path d="M16.145,2.571c-0.272-0.273-0.718-0.273-0.99,0L6.92,10.804l-4.241-4.27
-		              c-0.272-0.274-0.715-0.274-0.989,0L0.204,8.019c-0.272,0.271-0.272,0.717,0,0.99l6.217,6.258c0.272,0.271,0.715,0.271,0.99,0
-		              L17.63,5.047c0.276-0.273,0.276-0.72,0-0.994L16.145,2.571z"
-                  [ngStyle]="{ fill: todo.isCompleted ? '#00d1b2' : '#ddd' }" />
-              </g>
-            </svg>
-          </a>
-        </div>
-      </div>
+    <div class="block" *ngFor="let todo of todos$ | async">
+      <app-todos-item [todo]="todo" (delete)="onDelete($event)" (update)="onUpdate($event)">
+      </app-todos-item>
     </div>
-
   </div>
 </section>

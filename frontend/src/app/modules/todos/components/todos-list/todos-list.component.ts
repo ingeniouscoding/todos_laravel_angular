@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs';
 
 import { TodosService } from '../../services/todos.service';
 import { Todo } from '../../types/todo.interface';
@@ -18,8 +17,7 @@ export class TodosListComponent implements OnInit {
     this.todosService.init();
   }
 
-  onComplete(todo: Todo) {
-    todo.isCompleted = !todo.isCompleted;
+  onUpdate(todo: Todo) {
     this.todosService.update(todo);
   }
 
