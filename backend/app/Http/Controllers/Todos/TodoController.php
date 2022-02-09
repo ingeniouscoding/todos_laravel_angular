@@ -15,7 +15,7 @@ class TodoController extends Controller
 {
     public function index()
     {
-        $columns = ['id', 'body', 'is_completed', 'category'];
+        $columns = ['id', 'body', 'is_completed', 'category', 'created_at', 'updated_at'];
 
         $todos = Todo::select($columns)
             ->where('user_id', Auth::id())
