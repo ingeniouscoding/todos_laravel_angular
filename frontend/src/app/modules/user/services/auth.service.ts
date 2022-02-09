@@ -8,7 +8,7 @@ import { LocalStorageService } from '../../app-root/services/local-storage.servi
 import { UserLogin } from '../types/user-login.interface';
 import { UserRegister } from '../types/user-register.interface';
 
-const IS_AUTHENTICATED = 'is_authenticated'
+const IS_AUTHENTICATED = 'is_authenticated';
 
 @Injectable({
   providedIn: 'root'
@@ -65,13 +65,13 @@ export class AuthService {
     return !!this.storage.getItem(IS_AUTHENTICATED);
   }
 
+  setLoggedOut() {
+    this.storage.removeItem(IS_AUTHENTICATED);
+    this.authStatus$.next(false);
+  }
+
   private setLoggedIn() {
     this.storage.setItem(IS_AUTHENTICATED, 'true');
     this.authStatus$.next(true);
-  }
-
-  private setLoggedOut() {
-    this.storage.removeItem(IS_AUTHENTICATED);
-    this.authStatus$.next(false);
   }
 }
