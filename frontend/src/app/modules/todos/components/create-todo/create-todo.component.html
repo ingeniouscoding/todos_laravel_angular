@@ -6,7 +6,7 @@
           <input name="body" type="text" placeholder="Create todo..." class="input is-primary" [(ngModel)]="body">
         </div>
         <div class="control">
-          <button class="button is-primary">+</button>
+          <button class="button is-primary" [class.is-loading]="isLoading$ | async">+</button>
         </div>
       </div>
     </form>

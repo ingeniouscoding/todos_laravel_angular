@@ -9,6 +9,7 @@ import { TodosService } from '../../services/todos.service';
 })
 export class CreateTodoComponent {
   public body = '';
+  public isLoading$ = this.todosService.isCreating$;
 
   constructor(private todosService: TodosService) { }
 
