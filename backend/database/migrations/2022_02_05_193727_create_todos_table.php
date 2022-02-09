@@ -20,6 +20,7 @@ class CreateTodosTable extends Migration
             $table->string('category')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
