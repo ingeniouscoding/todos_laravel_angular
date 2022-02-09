@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 import { UserRoutingModule } from './user-routing.module';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
@@ -17,7 +16,6 @@ import { LayoutModule } from '../layout/layout.module';
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule,
     UserRoutingModule,
     LayoutModule,
   ],
