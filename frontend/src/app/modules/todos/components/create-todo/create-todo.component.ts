@@ -13,6 +13,8 @@ export class CreateTodoComponent {
   constructor(private todosService: TodosService) { }
 
   onCreate() {
+    if (!this.body) return;
+
     this.todosService.create(this.body);
     this.body = '';
   }
