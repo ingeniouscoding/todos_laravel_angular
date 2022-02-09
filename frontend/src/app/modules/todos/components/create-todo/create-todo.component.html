@@ -3,10 +3,10 @@
     <form (ngSubmit)="onCreate()">
       <div class="field has-addons">
         <div class="control is-expanded">
-          <input name="body" type="text" placeholder="Create todo..." class="input is-primary" [(ngModel)]="body">
+          <input name="body" type="text" placeholder="Create todo..." class="input is-link" [(ngModel)]="body">
         </div>
         <div class="control">
-          <button class="button is-primary" [class.is-loading]="isLoading$ | async">+</button>
+          <button class="button is-link" [class.is-loading]="isLoading$ | async">+</button>
         </div>
       </div>
     </form>
