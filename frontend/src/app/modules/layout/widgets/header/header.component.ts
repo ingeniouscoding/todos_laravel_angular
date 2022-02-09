@@ -1,16 +1,23 @@
 import { Component } from '@angular/core';
 
+import { AuthService } from 'src/app/modules/user/services/auth.service';
+
 @Component({
   selector: 'app-layout-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  isActive = false;
+  public isActive = false;
+  public isAuth$ = this.auth.isAuth$;
 
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
-  onClick(): void {
+  onShow(): void {
     this.isActive = !this.isActive;
+  }
+
+  onLogout(): void {
+    this.auth.logout();
   }
 }

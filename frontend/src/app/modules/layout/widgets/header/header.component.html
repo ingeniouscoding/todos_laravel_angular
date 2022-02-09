@@ -5,7 +5,7 @@
       <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
     </a>
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
-      [class.is-active]="isActive" (click)="onClick()">
+      [class.is-active]="isActive" (click)="onShow()">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -23,14 +23,21 @@
     </div>
     <div class="navbar-end">
       <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-primary">
-            <strong>Sign up</strong>
-          </a>
-          <a class="button is-light">
-            Log in
+        <div class="buttons" *ngIf="isAuth$ | async; else logout">
+          <a class="button is-primary is-outlined" (click)="onLogout()">
+            Выйти
           </a>
         </div>
+        <ng-template #logout>
+          <div class="buttons">
+            <a class="button is-primary" [routerLink]="['/register']">
+              <strong>Регистрация</strong>
+            </a>
+            <a class="button is-light" [routerLink]="['/login']">
+              Вход
+            </a>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
