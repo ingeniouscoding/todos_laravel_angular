@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
-use App\Http\Resources\TodoCollection;
 use App\Http\Resources\TodoResource;
 use Illuminate\Http\Response;
 
