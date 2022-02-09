@@ -1,0 +1,53 @@
+<div class="box is-flex is-justify-content-space-between is-align-items-center"
+  [class.opacity-30]="isDeleting$ | async"
+  (swipeleft)="onSwipeLeft()" (swiperight)="onSwipeRight()">
+
+  <div class="is-flex">
+    <div class="is-flex is-align-items-center mr-2 delete-icon" [class.is-open]="isOpen">
+      <a class="icon" (click)="onDelete()">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+          width="24" height="24"
+          viewBox="0 0 172 172"
+          style=" fill:#000000;">
+          <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+            stroke-linejoin="miter"
+            stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+            font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+            <path d="M0,172v-172h172v172z" fill="none"></path>
+            <g fill="#f14668">
+              <path
+                d="M71.66667,14.33333l-7.16667,7.16667h-43v14.33333h129v-14.33333h-43l-7.16667,-7.16667zM31.28418,50.16667l12.20573,107.5h85.02018l12.20573,-107.5z">
+              </path>
+            </g>
+          </g>
+        </svg>
+      </a>
+    </div>
+    <div>
+      <p class="subtitle">
+        {{ todo.body }}
+      </p>
+    </div>
+  </div>
+  <div class="is-flex is-align-items-center">
+    <a class="icon" (click)="onComplete()" *ngIf="!(isUpdating$ | async); else spinner">
+      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px" y="0px" viewBox="0 0 17.837 17.837" style="enable-background:new 0 0 17.837 17.837;"
+        xml:space="preserve">
+        <g>
+          <path d="M16.145,2.571c-0.272-0.273-0.718-0.273-0.99,0L6.92,10.804l-4.241-4.27
+              c-0.272-0.274-0.715-0.274-0.989,0L0.204,8.019c-0.272,0.271-0.272,0.717,0,0.99l6.217,6.258c0.272,0.271,0.715,0.271,0.99,0
+              L17.63,5.047c0.276-0.273,0.276-0.72,0-0.994L16.145,2.571z"
+            [ngStyle]="{ fill: todo.isCompleted ? '#00d1b2' : '#ddd' }" />
+        </g>
+      </svg>
+    </a>
+    <ng-template #spinner>
+      <div class="spinner-container">
+        <svg class="spinner" viewBox="0 0 50 50">
+          <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+        </svg>
+      </div>
+    </ng-template>
+  </div>
+</div>
