@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { catchError, Observable, of, throwError } from 'rxjs';
+import { catchError, EMPTY, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../../user/services/auth.service';
 
@@ -21,12 +21,11 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request)
       .pipe(
-        catchError((err) => {
-          if (err instanceof HttpErrorResponse) {
-            if (err.status === 401) {
-              this.auth.setLoggedOut();
-              this.router.navigateByUrl('/login');
-            }
+        catchError((err: HttpErrorResponse) => {
+          if (err.status === 401) {
+            this.auth.setLoggedOut();
+            this.router.navigateByUrl('/login');
+            return EMPTY;
           }
           return throwError(() => err);
         })
