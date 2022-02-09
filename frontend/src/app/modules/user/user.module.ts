@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserRoutingModule } from './user-routing.module';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { LayoutModule } from '../layout/layout.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
     FormsModule,
     HttpClientModule,
     UserRoutingModule,
+    LayoutModule,
   ],
 })
 export class UserModule { }
