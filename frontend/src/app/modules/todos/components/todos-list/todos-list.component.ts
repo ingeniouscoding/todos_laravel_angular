@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs';
 
 import { TodosService } from '../../services/todos.service';
 import { Todo } from '../../types/todo.interface';
@@ -9,12 +10,17 @@ import { Todo } from '../../types/todo.interface';
   styleUrls: ['./todos-list.component.scss'],
 })
 export class TodosListComponent implements OnInit {
-  public todos$ = this.todosService.todos$;
+  public todos$ = this.todosService.todos$
+    .pipe(
+      map(
+        (todos) => todos.sort((a, b) => +new Date(b.createdAt!) - +new Date(a.createdAt!))
+      )
+    );
 
   constructor(private todosService: TodosService) { }
 
   ngOnInit(): void {
-    this.todosService.init();
+    this.todosService.getAll();
   }
 
   onUpdate(todo: Todo) {
