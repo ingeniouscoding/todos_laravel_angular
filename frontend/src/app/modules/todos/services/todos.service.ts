@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
+import { TodoCollection } from '../types/todo-collection.interface';
+import { TodoResource } from '../types/todo-resource.interface';
 import { Todo } from '../types/todo.interface';
 
 const TODO_URL = environment.apiUrl + '/todos';
@@ -23,8 +25,8 @@ export class TodosService {
 
   constructor(private http: HttpClient) { }
 
-  init() {
-    this.http.get<any>(TODO_URL)
+  getAll() {
+    this.http.get<TodoCollection>(TODO_URL)
       .pipe(
         map((res) => res.data)
       ).subscribe({
@@ -35,7 +37,7 @@ export class TodosService {
   create(body: string) {
     this.creatingTodo$.next(true);
 
-    this.http.post<any>(TODO_URL, { body })
+    this.http.post<TodoResource>(TODO_URL, { body })
       .pipe(
         map((res) => res.data)
       ).subscribe({
@@ -52,7 +54,7 @@ export class TodosService {
   update(todo: Todo) {
     this.updatingTodo$.next([todo.id, true]);
 
-    this.http.patch<any>(`${TODO_URL}/${todo.id}`, todo)
+    this.http.patch<TodoResource>(`${TODO_URL}/${todo.id}`, todo)
       .pipe(
         map((res) => res.data)
       ).subscribe({
