@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { TodoCollection } from '../types/todo-collection.interface';
@@ -39,6 +39,7 @@ export class TodosService {
 
     this.http.post<TodoResource>(TODO_URL, { body })
       .pipe(
+        tap(() => this.creatingTodo$.next(false)),
         map((res) => res.data)
       ).subscribe({
         next: (todo) => {
@@ -46,9 +47,7 @@ export class TodosService {
           lastValues.push(todo);
           this.todosSubject$.next(lastValues);
         },
-      }).add(
-        () => this.creatingTodo$.next(false)
-      );
+      });
   }
 
   update(todo: Todo) {
@@ -56,6 +55,7 @@ export class TodosService {
 
     this.http.patch<TodoResource>(`${TODO_URL}/${todo.id}`, todo)
       .pipe(
+        tap(() => this.updatingTodo$.next([todo.id, false])),
         map((res) => res.data)
       ).subscribe({
         next: (updatedTodo) => {
@@ -63,9 +63,7 @@ export class TodosService {
           const newValues = lastValues.map((t) => t.id === updatedTodo.id ? updatedTodo : t);
           this.todosSubject$.next(newValues);
         },
-      }).add(
-        () => this.updatingTodo$.next([todo.id, false])
-      );
+      });
   }
 
   delete(todo: Todo) {
