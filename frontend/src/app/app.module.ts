@@ -10,6 +10,7 @@ import { UnauthorizedInterceptor } from './modules/app-root/interceptors/unautho
 import { TodosModule } from './modules/todos/todos.module';
 import { PageNotFoundComponent } from './modules/app-root/pages/page-not-found/page-not-found.component';
 import { UserModule } from './modules/user/user.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { UserModule } from './modules/user/user.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     TodosModule,
     UserModule,
