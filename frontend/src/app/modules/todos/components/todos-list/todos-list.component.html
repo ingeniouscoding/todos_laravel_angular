@@ -1,6 +1,6 @@
 <section class="section">
   <div class="container is-max-desktop">
-    <div class="block" @inOutBlock *ngFor="let todo of todos$ | async">
+    <div class="block" @inOutBlock *ngFor="let todo of todos$ | async; trackBy:trackById">
       <app-todos-item [todo]="todo" (delete)="onDelete($event)" (update)="onUpdate($event)">
       </app-todos-item>
     </div>
