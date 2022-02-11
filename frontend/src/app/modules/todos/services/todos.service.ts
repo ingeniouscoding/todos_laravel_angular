@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { TodoCollection } from '../types/todo-collection.interface';
@@ -14,9 +14,9 @@ const TODO_URL = environment.apiUrl + '/todos';
 })
 export class TodosService {
   private todosSubject$ = new BehaviorSubject<Todo[]>([]);
-  private creatingTodo$ = new BehaviorSubject<boolean>(false);
-  private updatingTodo$ = new BehaviorSubject<[string, boolean]>(['', false]);
-  private deletingTodo$ = new BehaviorSubject<[string, boolean]>(['', false]);
+  private creatingTodo$ = new Subject<boolean>();
+  private updatingTodo$ = new Subject<[string, boolean]>();
+  private deletingTodo$ = new Subject<[string, boolean]>();
 
   public todos$: Observable<Todo[]> = this.todosSubject$.asObservable();
   public isCreating$: Observable<boolean> = this.creatingTodo$.asObservable();
@@ -39,7 +39,6 @@ export class TodosService {
 
     this.http.post<TodoResource>(TODO_URL, { body })
       .pipe(
-        tap(() => this.creatingTodo$.next(false)),
         map((res) => res.data)
       ).subscribe({
         next: (todo) => {
@@ -47,7 +46,9 @@ export class TodosService {
           lastValues.push(todo);
           this.todosSubject$.next(lastValues);
         },
-      });
+      }).add(
+        () => this.creatingTodo$.next(false)
+      );
   }
 
   update(todo: Todo) {
@@ -55,7 +56,6 @@ export class TodosService {
 
     this.http.patch<TodoResource>(`${TODO_URL}/${todo.id}`, todo)
       .pipe(
-        tap(() => this.updatingTodo$.next([todo.id, false])),
         map((res) => res.data)
       ).subscribe({
         next: (updatedTodo) => {
@@ -63,7 +63,9 @@ export class TodosService {
           const newValues = lastValues.map((t) => t.id === updatedTodo.id ? updatedTodo : t);
           this.todosSubject$.next(newValues);
         },
-      });
+      }).add(
+        () => this.updatingTodo$.next([todo.id, false])
+      );
   }
 
   delete(todo: Todo) {
