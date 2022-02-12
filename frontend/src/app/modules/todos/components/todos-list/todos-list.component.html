@@ -1,7 +1,15 @@
 <section class="section">
   <div class="container is-max-desktop">
-    <app-todos-item @inOutBlock *ngFor="let todo of todos$ | async; trackBy:trackById"
-      [todo]="todo" (delete)="onDelete($event)" (update)="onUpdate($event)">
-    </app-todos-item>
+
+    <h2 class="is-size-3" *ngIf="isLoading$ | async; else todosList">
+      is loading...
+    </h2>
+
+    <ng-template #todosList>
+      <app-todos-item @inOutBlock *ngFor="let todo of todos$ | async; trackBy:trackById"
+        [todo]="todo" (delete)="onDelete($event)" (update)="onUpdate($event)">
+      </app-todos-item>
+    </ng-template>
+
   </div>
 </section>

@@ -14,11 +14,13 @@ const TODO_URL = environment.apiUrl + '/todos';
 })
 export class TodosService {
   private todosSubject$ = new BehaviorSubject<Todo[]>([]);
+  private isLoadingAll$ = new BehaviorSubject<boolean>(false);
   private creatingTodo$ = new Subject<boolean>();
   private updatingTodo$ = new Subject<[string, boolean]>();
   private deletingTodo$ = new Subject<[string, boolean]>();
 
   public todos$: Observable<Todo[]> = this.todosSubject$.asObservable();
+  public isLoading$: Observable<boolean> = this.isLoadingAll$.asObservable();
   public isCreating$: Observable<boolean> = this.creatingTodo$.asObservable();
   public isUpdating$: Observable<[string, boolean]> = this.updatingTodo$.asObservable();
   public isDeleting$: Observable<[string, boolean]> = this.deletingTodo$.asObservable();
@@ -26,12 +28,16 @@ export class TodosService {
   constructor(private http: HttpClient) { }
 
   getAll() {
+    this.isLoadingAll$.next(true);
+
     this.http.get<TodoCollection>(TODO_URL)
       .pipe(
         map((res) => res.data)
       ).subscribe({
         next: (data) => this.todosSubject$.next(data),
-      });
+      }).add(
+        () => this.isLoadingAll$.next(false)
+      );
   }
 
   create(body: string) {

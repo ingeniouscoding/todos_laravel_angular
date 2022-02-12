@@ -25,6 +25,8 @@ import { Todo } from '../../types/todo.interface';
   ],
 })
 export class TodosListComponent implements OnInit {
+  public isLoading$ = this.todosService.isLoading$;
+
   public todos$ = this.todosService.todos$
     .pipe(
       map(
