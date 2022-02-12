@@ -6,9 +6,17 @@
     </h2>
 
     <ng-template #todosList>
-      <app-todos-item @inOutBlock *ngFor="let todo of todos$ | async; trackBy:trackById"
-        [todo]="todo" (delete)="onDelete($event)" (update)="onUpdate($event)">
-      </app-todos-item>
+      <ng-container *ngIf="(todos$ | async) as todos">
+        <div *ngIf="todos.length > 0; else emptyList" [@listAnimation]="todos.length">
+          <app-todos-item *ngFor="let todo of todos; trackBy:trackById" [todo]="todo"
+            (delete)="onDelete($event)" (update)="onUpdate($event)">
+          </app-todos-item>
+        </div>
+      </ng-container>
+    </ng-template>
+
+    <ng-template #emptyList>
+      <h2 class="empty-list is-size-3">Список дел пуст.</h2>
     </ng-template>
 
   </div>
