@@ -1,4 +1,4 @@
-import { animate, keyframes, style, transition, trigger } from '@angular/animations';
+import { animate, keyframes, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 
@@ -10,16 +10,22 @@ import { Todo } from '../../types/todo.interface';
   templateUrl: './todos-list.component.html',
   styleUrls: ['./todos-list.component.scss'],
   animations: [
-    trigger('inOutBlock', [
-      transition(':enter', [
-        style({ transform: 'translate(-200px, -100px) scaleY(0)', opacity: 0 }),
-        animate('0.3s', style({ transform: 'translate(0) scaleY(100%)', opacity: 1 })),
-      ]),
-      transition(':leave', [
-        animate('0.3s', keyframes([
-          style({ transform: 'translateX(70%)', opacity: 0.2, offset: 0.7 }),
-          style({ transform: 'translateX(100%)', height: 0, margin: 0, offset: 1 }),
-        ])),
+    trigger('listAnimation', [
+      transition('* => *', [
+        query(':enter', [
+          style({ transform: 'translateX(-50%)', opacity: 0 }),
+          stagger('70ms', [
+            animate('400ms ease-out', style({ transform: 'translateX(0)', opacity: 1 })),
+          ]),
+        ], { optional: true }),
+        query(':leave', [
+          stagger('100ms', [
+            animate('400ms ease-in-out', keyframes([
+              style({ transform: 'translateX(50%)', opacity: 0, offset: 0.7 }),
+              style({ transform: 'translateX(100%)', height: 0, margin: 0, offset: 1 }),
+            ])),
+          ]),
+        ], { optional: true }),
       ]),
     ]),
   ],
