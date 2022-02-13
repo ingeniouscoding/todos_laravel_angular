@@ -6,41 +6,9 @@
   }
 }
 
-.delete-icon {
-  transform: translateX(-1.5rem);
-  width: 0;
-  opacity: 0;
-  transition: all ease-out 0.3s;
-
-  &.is-open {
-    transform: translateX(0);
-    width: 1.5rem;
-    opacity: 1;
-  }
-}
-
-.complete-icon {
-  display: block;
-  width: 0;
-  opacity: 0;
-  transition: all ease-out 0.3s;
-
-  &.is-open {
-    width: 1.5rem;
-    opacity: 1;
-  }
-}
-
-.edit-icon {
-  display: block;
-  width: 0;
-  opacity: 0;
-  transition: all ease-out 0.3s;
-
-  &.is-open {
-    width: 1.5rem;
-    opacity: 1;
-  }
+.todo-icon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .opacity-50 {

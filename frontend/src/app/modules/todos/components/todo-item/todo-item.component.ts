@@ -1,6 +1,15 @@
+import { transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { filter, map } from 'rxjs';
 
+import {
+  completeIconEnter,
+  completeIconLeave,
+  deleteIconEnter,
+  deleteIconLeave,
+  updateIconEnter,
+  updateIconLeave
+} from '../../animations/todo-item.animation';
 import { TodosService } from '../../services/todos.service';
 import { Todo } from '../../types/todo.interface';
 
@@ -8,6 +17,20 @@ import { Todo } from '../../types/todo.interface';
   selector: 'app-todos-item',
   templateUrl: './todo-item.component.html',
   styleUrls: ['./todo-item.component.scss'],
+  animations: [
+    trigger('deleteIcon', [
+      transition(':enter', deleteIconEnter),
+      transition(':leave', deleteIconLeave),
+    ]),
+    trigger('completeIcon', [
+      transition(':enter', completeIconEnter),
+      transition(':leave', completeIconLeave),
+    ]),
+    trigger('updateIcon', [
+      transition(':enter', updateIconEnter),
+      transition(':leave', updateIconLeave),
+    ]),
+  ]
 })
 export class TodoItemComponent {
   @Input() public todo!: Todo;

@@ -2,7 +2,7 @@
   [class.opacity-50]="isDeleting$ | async"
   (swipeleft)="onSwipeLeft()" (swiperight)="onSwipeRight()">
   <div class="is-flex is-align-items-center">
-    <div class="mr-2 delete-icon" [class.is-open]="isDeleteOpen">
+    <div class="todo-icon" *ngIf="isDeleteOpen" @deleteIcon>
       <a class="icon" (click)="onDelete()">
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
           width="24" height="24"
@@ -22,15 +22,15 @@
         </svg>
       </a>
     </div>
-    <div>
-      <p class="subtitle">
+    <div class="px-1">
+      <p class="is-size-5">
         {{ todo.body }}
       </p>
     </div>
   </div>
   <div class="is-flex is-align-items-center">
 
-    <div class="complete-icon" [class.is-open]="!isDeleteOpen && !isEditOpen">
+    <div class="todo-icon" *ngIf="!isDeleteOpen && !isEditOpen" @completeIcon>
       <a class="icon" (click)="onComplete()" *ngIf="!(isUpdating$ | async); else spinner">
         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px" y="0px" viewBox="0 0 17.837 17.837" style="enable-background:new 0 0 17.837 17.837;"
@@ -52,7 +52,7 @@
       </ng-template>
     </div>
 
-    <div class="edit-icon" [class.is-open]="isEditOpen">
+    <div class="todo-icon" *ngIf="isEditOpen" @updateIcon>
       <a class="icon" routerLink="/todos/{{ todo.id }}/edit">
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
           width="24" height="24"
